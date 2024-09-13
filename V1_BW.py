@@ -56,5 +56,5 @@ def image_to_ascii(image_path, block_size=2, max_width=60):
     return '\n'.join(ascii_art)
 
 # 使用範例，指定最大寬度為60格
-ascii_image = image_to_ascii('t11.jpg', max_width=40)
+ascii_image = image_to_ascii('t1.jpg', max_width=40)
 print(ascii_image)
