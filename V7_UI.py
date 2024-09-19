@@ -177,7 +177,7 @@ class MainWindow(QMainWindow):
     def image_to_ascii(self, img_gray_edge, block_size=2, max_width=60, threshold=50):
         img = Image.fromarray(img_gray_edge).convert('L')
         width, height = img.size
-        img = img.resize((int(width * 1.5), height))
+        img = img.resize((int(width * 1.3), height))
         new_width, new_height = img.size
         if new_width > max_width * block_size:
             scale_factor = (max_width * block_size) / new_width
