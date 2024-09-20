@@ -289,11 +289,6 @@ class MainWindow(QMainWindow):
             ascii_art.append(''.join(row))
         
         return '\n'.join(ascii_art)
-    
-    # def show_instructions(self):
-    #     # 創建並顯示 InstructionsWindow 作為對話框
-    #     self.instructions_window = InstructionsWindow()
-    #     self.instructions_window.exec()  # 以模態方式打開對話框
 
     def show_instructions(self):
         # 創建並顯示 InstructionsWindow 作為非模態窗口
