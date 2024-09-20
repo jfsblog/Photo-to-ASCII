@@ -30,7 +30,7 @@ class MainWindow(QMainWindow):
         QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
         
         # 載入 UI
-        self.ui = load_ui("V3.ui")
+        self.ui = load_ui("V4.ui")
         self.setCentralWidget(self.ui)
         self.setWindowTitle("圖片轉ASCII文字產生器")
 
@@ -48,14 +48,10 @@ class MainWindow(QMainWindow):
         self.lineEdit_edge_thickness = self.ui.findChild(QLineEdit, "lineEdit_edge_thickness")
         self.lineEdit_edge_sensitivity_x = self.ui.findChild(QLineEdit, "lineEdit_edge_sensitivity_x")
         self.lineEdit_edge_sensitivity_y = self.ui.findChild(QLineEdit, "lineEdit_edge_sensitivity_y")
+        self.horizontalSlider_contrast = self.ui.findChild(QSlider, "horizontalSlider_contrast")
+        self.label_contrast = self.ui.findChild(QLabel, "label_contrast")
         self.lineEdit_max_width = self.ui.findChild(QLineEdit, "lineEdit_max_width")
-
-        # self.lineEdit_threshold = self.ui.findChild(QLineEdit, "lineEdit_threshold")
-
-        # graylevel_value = self.horizontalSlider_graylevel.value()
         self.textEdit = self.ui.findChild(QTextEdit, "textEdit")
-
-        # 新增獲取 horizontalSlider_graylevel 和 label_graylevel
         self.horizontalSlider_graylevel = self.ui.findChild(QSlider, "horizontalSlider_graylevel")
         self.label_graylevel = self.ui.findChild(QLabel, "label_graylevel")
 
@@ -63,7 +59,6 @@ class MainWindow(QMainWindow):
         self.label_original.setScaledContents(True)
         self.label_gray.setScaledContents(True)
         self.label_dilated_edges.setScaledContents(True)
-        self.label_mix.setScaledContents(True)
 
         # 連接按鈕點擊事件
         self.pushButton_load.clicked.connect(self.load_image)
@@ -73,12 +68,18 @@ class MainWindow(QMainWindow):
         self.pushButton_instructions.clicked.connect(self.show_instructions)  # 連接說明按鈕到對應的槽函數
 
         # 連接 slider 的值變化事件到槽函數
+        self.horizontalSlider_contrast.valueChanged.connect(self.update_contrastlevel)
         self.horizontalSlider_graylevel.valueChanged.connect(self.update_graylevel)
 
         # 初始化 img
         self.img = None        
         # 初始化 img_gray_edge 為 None
         self.img_gray_edge = None
+
+    # 更新 horizontalSlider_contrast 和 label_contrast
+    def update_contrastlevel(self):
+        constrast_value = self.horizontalSlider_contrast.value() / 10  # 獲取滑動條的當前值
+        self.label_contrast.setText(str(constrast_value))  # 更新 label_contrast 的顯示
 
     # 更新 horizontalSlider_graylevel 和 label_graylevel
     def update_graylevel(self):
@@ -106,7 +107,7 @@ class MainWindow(QMainWindow):
             pixmap_original = QPixmap.fromImage(self.convert_cv_to_qimage(self.img))
             self.label_original.setPixmap(pixmap_original)
             self.label_original.setPixmap(pixmap_original.scaled(self.label_original.size(), Qt.AspectRatioMode.KeepAspectRatio))
-
+            
         except ValueError as e:
             self.show_error_message(str(e))
             self.label_original.clear()
@@ -154,8 +155,13 @@ class MainWindow(QMainWindow):
         self.label_gray.setPixmap(pixmap_gray)
         self.label_gray.setPixmap(pixmap_gray.scaled(self.label_gray.size(), Qt.AspectRatioMode.KeepAspectRatio))
 
+        #調整圖片對比度
+        contrast_parameter = self.horizontalSlider_contrast.value()
+        alpha = contrast_parameter
+        img_contrast = cv2.convertScaleAbs(self.img, alpha=alpha, beta=0)
+
         # 偵測邊緣並顯示
-        edges = self.detect_edges(img_gray, edge_thickness, edge_sensitivity)
+        edges = self.detect_edges(img_contrast, edge_thickness, edge_sensitivity)
         pixmap_edges = QPixmap.fromImage(self.convert_cv_to_qimage(edges, is_gray=True))
         self.label_dilated_edges.setPixmap(pixmap_edges)
         self.label_dilated_edges.setPixmap(pixmap_edges.scaled(self.label_dilated_edges.size(), Qt.AspectRatioMode.KeepAspectRatio))
@@ -200,8 +206,8 @@ class MainWindow(QMainWindow):
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         return img_gray
 
-    def detect_edges(self, img_gray, edge_thickness=3, edge_sensitivity=(100, 200)):
-        edges = cv2.Canny(img_gray, edge_sensitivity[0], edge_sensitivity[1])
+    def detect_edges(self, img, edge_thickness, edge_sensitivity):
+        edges = cv2.Canny(img, edge_sensitivity[0], edge_sensitivity[1])
         kernel = np.ones((edge_thickness, edge_thickness), np.uint8)
         dilated_edges = cv2.dilate(edges, kernel, iterations=1)
         return dilated_edges

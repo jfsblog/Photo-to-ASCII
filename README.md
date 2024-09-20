@@ -2,13 +2,10 @@
 
 ## Overview
 
-This project provides an application for processing images by overlaying detected edges on grayscale versions and generating ASCII art from the processed images. It supports two methods of overlaying edges, suited for schematic images or photographs, and offers customizable parameters for edge detection and ASCII art generation.
-
-UPDATE: V7.py
+This project provides an application for processing images by overlaying detected edges on grayscale versions and generating ASCII art from the processed images. It supports two methods for overlaying edges, suited for schematic images or photographs, and offers customizable parameters for edge detection and ASCII art generation.
 
 ### Key Features:
-1. **Edge Detection and Overlay:** 
-   - Two methods for overlaying edges: one optimized for ideograms and one for real-life photos.
+1. **Edge Detection and Overlay:** Two methods for overlaying edges: one optimized for ideograms and one for real-life photos.
 2. **Grayscale Conversion:** Convert images to grayscale before processing.
 3. **Edge Customization:** Adjustable edge thickness and sensitivity settings.
 4. **ASCII Art Generation:** Generate ASCII art from the processed image with customizable width and gray level thresholds.
@@ -25,7 +22,7 @@ pip install numpy opencv-python pillow PySide6
 ## File Structure
 
 - **V7_overlay_edges_on_gray.py**: Contains two functions to overlay edges on a grayscale image for ideograms and photos.
-- **main.py**: The main application script which loads the UI, handles image processing, and generates ASCII art.
+- **V8_UI.py**: The main application script which loads the UI, handles image processing, and generates ASCII art.
 - **V3.ui**: The Qt Designer .ui file that defines the GUI layout and components.
 
 ## Usage
@@ -35,7 +32,7 @@ pip install numpy opencv-python pillow PySide6
 To run the application, execute the following command:
 
 bash
-python main.py
+python V8_UI.py
 
 
 ### Step 2: Loading an Image
@@ -45,7 +42,7 @@ python main.py
 
 ### Step 3: Processing the Image
 
-1. Adjust the edge thickness and sensitivity values in the text boxes.
+1. Adjust the edge thickness and sensitivity values in the text boxes:
    - **Edge Thickness**: Determines how thick the detected edges will be.
    - **Edge Sensitivity**: Adjust the lower and upper bounds for edge detection.
 2. Click the **"進行影像處理"** button to process the image:
@@ -73,8 +70,23 @@ In the V7_overlay_edges_on_gray.py file:
 
 ### ASCII Art Customization
 
-In the main.py file:
-- You can adjust the symbol_map in the image_to_ascii method to modify how pixel values are mapped to ASCII characters.
+The process of converting images to ASCII art relies on the brightness information of the image and directional analysis to determine which ASCII characters best represent the visual details.
+
+#### 1. **Brightness and ASCII Mapping**
+   - The program uses a predefined symbol_map, which maps brightness levels to specific ASCII characters. Darker regions are represented by dense characters (e.g., █, ▌), mid-level brightness areas are shown using lighter shading characters (e.g., ░), and lighter areas use blank spaces (　), enhancing the contrast and structure of the final ASCII art.
+  
+#### 2. **Directional Detection**
+   - The program enhances the ASCII representation by incorporating **directional detection**:
+     - It analyzes the brightness changes in specific directions (upper-right, lower-right, upper-left, lower-left) to accurately capture shading and transitions.
+     - Based on this directional analysis, the program selects ASCII characters (such as ▛, ▜) that best represent these transitions in brightness between neighboring pixels.
+
+#### 3. **Pixel Grouping and Edge Cases**
+   - To maintain the image’s details, pixels are processed in groups (e.g., 2x2 blocks), and their average brightness is analyzed.
+   - In regions of extreme brightness or darkness, the program simplifies character selection, directly using the darkest or lightest ASCII symbols without further checks.
+
+By combining brightness-based mapping with directional detection, this approach produces ASCII art that not only reflects the brightness levels of the image but also captures finer visual details like edges and gradients.
+
+To modify the ASCII character set or mapping behavior, you can adjust the symbol_map in the image_to_ascii method inside main.py to tailor the output to your preferences.
 
 ## Notes
 
@@ -85,6 +97,11 @@ In the main.py file:
 
 When displaying ASCII art, if the font used by the device does not correctly treat special characters as full-width, it may lead to distortion of the art. To ensure the best display quality, it is recommended to use a font that supports full-width characters.
 
-Recommended Font: [Google Noto Sans](https://www.google.com/get/noto/)
+**Recommended Font**: [Google Noto Sans](https://www.google.com/get/noto/)
 
 This font effectively handles various symbols and multilingual characters, making it suitable for displaying ASCII art.
+
+
+## Contact
+- Author: SHENGLE
+- Website: [撰風旅食:旅遊美食分享](https://jfsblog.com/)、[漫步時光:全台活動資訊整理](https://strolltimes.com/)
