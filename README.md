@@ -1,107 +1,111 @@
-# V7 Overlay Edges on Gray with ASCII Art Generation
+# V7 灰階影像疊加邊緣並生成ASCII藝術
 
-## Overview
+## 概述
 
-This project provides an application for processing images by overlaying detected edges on grayscale versions and generating ASCII art from the processed images. It supports two methods for overlaying edges, suited for schematic images or photographs, and offers customizable parameters for edge detection and ASCII art generation.
+此專案提供一個應用程式，用於將偵測到的邊緣疊加到灰階影像上，並從處理過的影像生成ASCII藝術。該應用程式支援兩種邊緣疊加方法，分別適用於示意圖和實拍照片，並且提供可調整的邊緣偵測與ASCII藝術生成參數。
 
-### Key Features:
-1. **Edge Detection and Overlay:** Two methods for overlaying edges: one optimized for ideograms and one for real-life photos.
-2. **Grayscale Conversion:** Convert images to grayscale before processing.
-3. **Edge Customization:** Adjustable edge thickness and sensitivity settings.
-4. **ASCII Art Generation:** Generate ASCII art from the processed image with customizable width and gray level thresholds.
-5. **Interactive GUI:** PySide6-based GUI for selecting images, adjusting settings, and generating ASCII art.
+### 主要功能
+1. **邊緣偵測與疊加**：兩種邊緣疊加方法，一種適用於示意圖，另一種適用於實拍照片。
+2. **灰階轉換**：將影像轉換為灰階進行處理。
+3. **邊緣自定義**：可調整的邊緣粗細和靈敏度設置。
+4. **ASCII藝術生成**：從處理過的影像生成ASCII藝術，並可自定義寬度與灰階級別。
+5. **互動式GUI**：基於PySide6的圖形介面，方便選擇影像、調整設置並生成ASCII藝術。
 
-## Prerequisites
+## 先決條件
 
-Make sure you have the following libraries installed before running the project:
+在運行此專案之前，請確保已安裝以下庫：
 
 bash
 pip install numpy opencv-python pillow PySide6
 
 
-## File Structure
+## 檔案結構
 
-- **V7_overlay_edges_on_gray.py**: Contains two functions to overlay edges on a grayscale image for ideograms and photos.
-- **V8_UI.py**: The main application script which loads the UI, handles image processing, and generates ASCII art.
-- **V3.ui**: The Qt Designer .ui file that defines the GUI layout and components.
+- **V7_overlay_edges_on_gray.py**：包含兩個函數，用於將邊緣疊加到示意圖和實拍照片的灰階影像上。
+- **V8_UI.py**：主應用程式腳本，負責載入UI、處理影像並生成ASCII藝術。
+- **V3.ui**：使用Qt Designer設計的.ui文件，定義了GUI的佈局和組件。
 
-## Usage
+## 使用步驟
 
-### Step 1: Running the Application
+### 步驟1：運行應用程式
 
-To run the application, execute the following command:
+運行應用程式，執行以下命令：
 
 bash
 python V8_UI.py
 
 
-### Step 2: Loading an Image
+### 步驟2：載入圖片
 
-1. Click the **"載入圖片"** button to select an image (.png, .jpg, .bmp, .jpeg).
-2. The selected image's path will be displayed, and the image will be loaded into the GUI.
+1. 點擊**"載入圖片"**按鈕，選擇一張影像（支援 .png、.jpg、.bmp、.jpeg 格式）。
+2. 影像路徑將顯示在界面中，並將影像載入到GUI中。
 
-### Step 3: Processing the Image
+### 步驟3：影像處理與參數調整
 
-1. Adjust the edge thickness and sensitivity values in the text boxes:
-   - **Edge Thickness**: Determines how thick the detected edges will be.
-   - **Edge Sensitivity**: Adjust the lower and upper bounds for edge detection.
-2. Click the **"進行影像處理"** button to process the image:
-   - The image will be converted to grayscale.
-   - Edges will be detected and overlaid based on the method selected in the **"comboBox_method"** (either for ideograms or photos).
+1. **邊緣粗細**：增大數值會使 ASCII 藝術中的邊緣變得更粗，能夠更清晰地突出圖像輪廓；相反，數值較小時，邊緣會變得更細緻，適合呈現柔和的效果。
 
-### Step 4: Generating ASCII Art
+2. **邊緣靈敏度**：這兩個參數用來調整邊緣檢測的敏感程度。靈敏度越低，檢測到的邊緣會越少，可能會漏掉一些細節；靈敏度越高，則可能檢測到更多邊緣，包括一些不必要的噪音。通過調整這些參數，你可以在細節和清晰度之間找到最佳平衡。
 
-1. Adjust the **"Graylevel"** slider to set the threshold for ASCII conversion.
-2. Enter the **"Max Width"** for the ASCII art.
-3. Click the **"生成ASCII藝術"** button to generate ASCII art based on the processed image.
-4. The generated ASCII art will be displayed in the text area.
+3. **文字圖寬**：這個參數決定生成的 ASCII 藝術的寬度。更大的寬度會使藝術作品更詳細，但也可能需要更長的輸出行；較小的寬度則會簡化作品，但可能損失一些細節。
 
-### Step 5: Copying the ASCII Art
+4. **處理方法**：
+   - **適用示意圖**：針對簡單或插圖風格的影像。
+   - **適用實拍照**：針對真實照片進行處理。
 
-Click the **"複製"** button to copy the ASCII art to the clipboard.
+5. **灰階閾值**：數值越大，影像的對比度越高，生成的 ASCII 藝術中的灰階數量會變少，圖像看起來更明亮且細節較少；數值較小時，對比度降低，可以保留更多細節，讓圖像顯得更加豐富。
 
-## Customization
+### 步驟4：生成ASCII藝術
 
-### Modifying Edge Overlay Behavior
+1. 調整**"Graylevel"**滑桿來設置ASCII轉換的灰階級別。
+2. 輸入ASCII藝術的**"最大寬度"**。
+3. 點擊**"生成ASCII藝術"**按鈕，基於處理過的影像生成ASCII藝術。
+4. 生成的ASCII藝術將顯示在文字區域中。
 
-In the V7_overlay_edges_on_gray.py file:
-- The overlay_edges_on_gray_ideogram function handles the overlay for schematic images, setting edge pixels to black.
-- The overlay_edges_on_gray_photo function handles photographs, using local brightness to determine whether edges should be black or white.
+### 步驟5：複製ASCII藝術
 
-### ASCII Art Customization
+點擊**"複製"**按鈕將ASCII藝術複製到剪貼簿。
 
-The process of converting images to ASCII art relies on the brightness information of the image and directional analysis to determine which ASCII characters best represent the visual details.
+## 自定義
 
-#### 1. **Brightness and ASCII Mapping**
-   - The program uses a predefined symbol_map, which maps brightness levels to specific ASCII characters. Darker regions are represented by dense characters (e.g., █, ▌), mid-level brightness areas are shown using lighter shading characters (e.g., ░), and lighter areas use blank spaces (　), enhancing the contrast and structure of the final ASCII art.
-  
-#### 2. **Directional Detection**
-   - The program enhances the ASCII representation by incorporating **directional detection**:
-     - It analyzes the brightness changes in specific directions (upper-right, lower-right, upper-left, lower-left) to accurately capture shading and transitions.
-     - Based on this directional analysis, the program selects ASCII characters (such as ▛, ▜) that best represent these transitions in brightness between neighboring pixels.
+### 修改邊緣疊加行為
 
-#### 3. **Pixel Grouping and Edge Cases**
-   - To maintain the image’s details, pixels are processed in groups (e.g., 2x2 blocks), and their average brightness is analyzed.
-   - In regions of extreme brightness or darkness, the program simplifies character selection, directly using the darkest or lightest ASCII symbols without further checks.
+在V7_overlay_edges_on_gray.py文件中：
+- overlay_edges_on_gray_ideogram 函數處理示意圖影像的邊緣疊加，將邊緣像素設置為黑色。
+- overlay_edges_on_gray_photo 函數處理實拍照片，根據當地亮度來決定邊緣應是黑色還是白色。
 
-By combining brightness-based mapping with directional detection, this approach produces ASCII art that not only reflects the brightness levels of the image but also captures finer visual details like edges and gradients.
+### ASCII藝術自定義
 
-To modify the ASCII character set or mapping behavior, you can adjust the symbol_map in the image_to_ascii method inside main.py to tailor the output to your preferences.
+將影像轉換為ASCII藝術的過程依賴於影像的亮度信息以及方向檢測，以決定哪個ASCII字符最能代表視覺細節。
 
-## Notes
+#### 1. **亮度與ASCII映射**
+   - 程式使用預定義的symbol_map，將亮度級別映射到特定的ASCII字符。較暗的區域使用密集字符表示（如█、▌），中等亮度的區域使用較輕的字符表示（如░），而較亮的區域則使用空白字符（　）來增強對比與結構。
 
-- If an image fails to load due to issues with the path (e.g., containing special characters or Chinese), an error message will be shown.
-- The slider for gray levels allows dynamic adjustment for generating ASCII art with different levels of detail.
+#### 2. **方向檢測**
+   - 程式通過加入**方向檢測**來增強ASCII表示：
+     - 它分析特定方向上的亮度變化（右上、右下、左上、左下），以準確捕捉陰影和過渡。
+     - 根據這些方向上的分析，程式選擇最能代表這些亮度過渡的ASCII字符（例如▛、▜）。
 
-### Font Reminder
+#### 3. **像素分組與邊緣情況**
+   - 為了保持影像的細節，像素會按組處理（例如，2x2塊），並分析它們的平均亮度。
+   - 在極端亮度或暗度的區域，程式簡化字符選擇，直接使用最暗或最亮的ASCII符號，而不進行進一步的檢查。
 
-When displaying ASCII art, if the font used by the device does not correctly treat special characters as full-width, it may lead to distortion of the art. To ensure the best display quality, it is recommended to use a font that supports full-width characters.
+通過結合亮度映射與方向檢測，這種方法生成的ASCII藝術不僅反映了影像的亮度級別，還捕捉了邊緣與漸變等更精細的視覺細節。
 
-**Recommended Font**: [Google Noto Sans](https://www.google.com/get/noto/)
+要修改ASCII字符集或映射行為，可以在main.py中的image_to_ascii方法裡調整symbol_map來定制輸出效果。
 
-This font effectively handles various symbols and multilingual characters, making it suitable for displaying ASCII art.
+## 注意事項
 
+- 如果影像無法載入（如路徑中包含特殊字符或中文），會顯示錯誤訊息。
+- 灰階滑桿允許動態調整，以生成不同細節層次的ASCII藝術。
 
-## Contact
-- Author: SHENGLE
-- Website: [撰風旅食:旅遊美食分享](https://jfsblog.com/)、[漫步時光:全台活動資訊整理](https://strolltimes.com/)
+### 字體提醒
+
+顯示ASCII藝術時，如果設備使用的字體無法正確處理特殊字符作為全寬字符，可能會導致藝術失真。為了確保最佳顯示效果，建議使用支持全寬字符的字體。
+
+**推薦字體**：[Google Noto Sans](https://www.google.com/get/noto/)
+
+此字體能有效處理各種符號和多語種字符，適合用來顯示ASCII藝術。
+
+## 聯繫方式
+- 作者：SHENGLE
+- 網站：[撰風旅食:旅遊美食分享](https://jfsblog.com/)、[漫步時光:全台活動資訊整理](https://strolltimes.com/)

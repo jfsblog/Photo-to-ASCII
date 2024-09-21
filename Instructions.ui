@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>481</width>
-    <height>642</height>
+    <height>670</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>20</x>
      <y>20</y>
      <width>441</width>
-     <height>601</height>
+     <height>631</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -29,12 +29,12 @@
        <widget class="QLabel" name="label_2">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: lightgray; /* 背景顏色 */
-line-height: 2; /* 行距 */
+line-height: 1.5; /* 行距 */
 padding: 5px;</string>
         </property>
         <property name="text">
@@ -84,7 +84,7 @@ padding: 5px;</string>
        <widget class="QLabel" name="label_3">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -133,10 +133,62 @@ padding: 5px;</string>
        </spacer>
       </item>
       <item>
+       <widget class="QLabel" name="label_12">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: lightgray; /* 背景顏色 */
+line-height: 2; /* 行距 */
+padding: 5px;</string>
+        </property>
+        <property name="text">
+         <string>對比度</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_13">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">line-height: 2; /* 行距 */</string>
+        </property>
+        <property name="text">
+         <string>調整影像對比度可對邊緣顯示有影響。</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QLabel" name="label_4">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -188,7 +240,7 @@ padding: 5px;</string>
        <widget class="QLabel" name="label_5">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -241,7 +293,7 @@ padding: 5px;</string>
        <widget class="QLabel" name="label_6">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -275,19 +327,6 @@ padding: 5px;</string>
          <bool>true</bool>
         </property>
        </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_8">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>
