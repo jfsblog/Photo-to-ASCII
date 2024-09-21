@@ -15,9 +15,9 @@ This project provides an application for processing images by overlaying detecte
 
 Make sure you have the following libraries installed before running the project:
 
-bash
+ ```bash
 pip install numpy opencv-python pillow PySide6
-
+ ```
 
 ## File Structure
 
@@ -31,9 +31,9 @@ pip install numpy opencv-python pillow PySide6
 
 To run the application, execute the following command:
 
-bash
+ ```bash
 python V8_UI.py
-
+ ```
 
 ### Step 2: Loading an Image
 
